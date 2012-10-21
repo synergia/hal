@@ -6,6 +6,7 @@ ActiveAdmin.register Item do
       f.input :category, :include_blank => false
       f.input :user
       f.input :state, :as => :select, :collection => Item::STATES, :include_blank => false
+      f.input :project
       f.input :comment
     end
 
@@ -16,6 +17,7 @@ ActiveAdmin.register Item do
     column :code
     column :name
     column :category
+    column :project
     column :state
     column :user
     column :created_at
@@ -24,9 +26,13 @@ ActiveAdmin.register Item do
     default_actions
   end
 
+  scope :all
+  scope :available
+
   filter :code
   filter :name
   filter :category
   filter :user
+  filter :project
   filter :state, :as => :select, :collection => Item::STATES
 end

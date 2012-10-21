@@ -37,6 +37,10 @@ class DeviseCreateUsers < ActiveRecord::Migration
       # t.string :authentication_token
 
 
+      t.string :name
+      t.string :phone
+      t.string :role
+
       t.timestamps
     end
 
