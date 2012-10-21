@@ -49,8 +49,9 @@ Hal::Application.configure do
   # config.assets.precompile += %w( search.js )
 
   # Disable delivery errors, bad email addresses will be ignored
-  # config.action_mailer.raise_delivery_errors = false
-    config.action_mailer.default_url_options = { :host => 'hal.teamon.eu' }
+  config.action_mailer.delivery_method = :test
+  config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.default_url_options = { :host => 'hal.teamon.eu' }
 
 
   # Enable threaded mode
