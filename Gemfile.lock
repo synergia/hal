@@ -154,6 +154,7 @@ PLATFORMS
 DEPENDENCIES
   activeadmin (= 0.4.4)
   coffee-rails (~> 3.2.1)
+  execjs
   jquery-rails
   pg
   rails (= 3.2.3)
