@@ -1,5 +1,5 @@
 class Item < ActiveRecord::Base
-  STATES = [:operative, :crippled]
+  STATES = %w(available ordered taken used)
 
   attr_accessible :category_id, :code, :comment, :name, :state, :user_id, :project_id
 
@@ -10,5 +10,10 @@ class Item < ActiveRecord::Base
   belongs_to :user
   belongs_to :project
 
-  scope :available, where(:user_id => nil, :project_id => nil)
+  STATES.each do |st|
+    scope st, where(:state => st)
+    define_method "#{st}?" do
+      self.state == st
+    end
+  end
 end

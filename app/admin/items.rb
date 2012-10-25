@@ -17,17 +17,33 @@ ActiveAdmin.register Item do
     column :code
     column :name
     column :category
-    column :project
-    column :state
-    column :user
-    column :created_at
-    column :updated_at
+    column :state do |item|
+      case item.state
+      when "taken"
+        "Taken by %s" % (link_to item.user.name, user_path(item.user))
+      when "used"
+        "Used in %s" % (link_to item.project.name, project_path(item.project))
+      when "ordered"
+        "Ordered by %s" % (link_to item.user.name, user_path(item.user))
+      else
+        item.state.capitalize
+      end.html_safe
+    end
 
-    default_actions
+    column "Actions" do |item|
+      links = []
+      links << link_to("Edit", edit_item_path(item), :class => "member_link")
+      links << link_to("Delete", item_path(item), :class => "member_link", :method => :delete)
+      links << link_to("Order", new_order_path(:order => {:item_id => item.id}), :class => "member_link") if item.available?
+      links.join(" ").html_safe
+    end
   end
 
   scope :all
   scope :available
+  scope :ordered
+  scope :taken
+  scope :used
 
   filter :code
   filter :name

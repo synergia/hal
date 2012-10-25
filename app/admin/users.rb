@@ -13,6 +13,22 @@ ActiveAdmin.register User do
     f.buttons
   end
 
+  show do |ad|
+    attributes_table do
+      row :id
+      row :name
+      row :email
+      row :phone
+      row :role
+      row :sign_in_count
+      row :current_sign_in_at
+      row :last_sign_in_at
+      row :current_sign_in_ip
+      row :last_sign_in_ip
+    end
+    active_admin_comments
+  end
+
   index do
     column :id
     column :name
@@ -20,7 +36,7 @@ ActiveAdmin.register User do
     column :role
     column :projects do |user|
       user.projects.map do |project|
-        link_to project.name, a_project_path(project)
+        link_to project.name, project_path(project)
       end.join(", ").html_safe
     end
 

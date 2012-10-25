@@ -7,13 +7,14 @@ class User < ActiveRecord::Base
   ROLES = ["admin", "user"]
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :name, :role, :phone
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :name, :role, :phone, :project_ids
   # attr_accessible :title, :body
 
   validates_presence_of :name
 
   has_many :items
   has_and_belongs_to_many :projects
+  has_many :orders
 
   after_create { |admin| admin.send_reset_password_instructions }
 

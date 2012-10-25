@@ -15,12 +15,12 @@ ActiveAdmin.register Project do
     column :state
     column :users do |project|
       project.users.map do |user|
-        link_to user.name, a_user_path(user)
+        link_to user.name, user_path(user)
       end.join(", ").html_safe
     end
     column :items do |project|
       project.items.map do |item|
-        link_to item.name, a_item_path(item)
+        link_to item.name, item_path(item)
       end.join(", ").html_safe
     end
 

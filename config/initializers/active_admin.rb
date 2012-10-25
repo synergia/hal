@@ -31,7 +31,7 @@ ActiveAdmin.setup do |config|
   # will namespace routes to /hello_world/*
   #
   # To set no namespace by default, use:
-  config.default_namespace = :a
+  config.default_namespace = nil
   #
   # Default:
   # config.default_namespace = :admin

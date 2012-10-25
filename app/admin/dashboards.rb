@@ -7,13 +7,41 @@ ActiveAdmin::Dashboards.build do
   # == Simple Dashboard Section
   # Here is an example of a simple dashboard section
   #
-    # section "Recent Posts" do
-    #   ul do
-    #     Post.recent(5).collect do |post|
-    #       li link_to(post.title, admin_post_path(post))
-    #     end
-    #   end
-    # end
+  section "Pending orders" do
+    table do
+      tr do
+        th "Item"
+        th "Project"
+        th "User"
+        th "Date"
+      end
+      Order.pending.recent(5).map do |order|
+        tr do
+          td link_to(order.item.name, order_path(order))
+          td link_to(order.project.name, order_path(order))
+          td link_to(order.user.name, order_path(order))
+          td order.created_at.to_s(:short)
+        end
+      end
+    end
+  end
+
+  section "Your orders" do
+    table do
+      tr do
+        th "Item"
+        th "Status"
+        th "Date"
+      end
+      current_user.orders.map do |order|
+        tr do
+          td link_to(order.item.name, order_path(order))
+          td order.status
+          td order.created_at.to_s(:short)
+        end
+      end
+    end
+  end
 
   # == Render Partial Section
   # The block is rendered within the context of the view, so you can
