@@ -33,7 +33,7 @@ ActiveAdmin::Dashboards.build do
         th "Status"
         th "Date"
       end
-      current_user.orders.map do |order|
+      current_user.orders.order("created_at DESC").map do |order|
         tr do
           td link_to(order.item.name, order_path(order))
           td order.status

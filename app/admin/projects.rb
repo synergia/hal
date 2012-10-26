@@ -3,7 +3,7 @@ ActiveAdmin.register Project do
     f.inputs "Details" do
       f.input :name
       f.input :state, :as => :select, :collection => Project::STATES
-      f.input :users
+      f.input :users, :as => :check_boxes
     end
 
     f.buttons

@@ -5,9 +5,10 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   ROLES = ["admin", "user"]
+  FUNCTIONS = ["member", "board", "pretendent"]
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :name, :role, :phone, :project_ids
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :name, :role, :phone, :project_ids, :function
   # attr_accessible :title, :body
 
   validates_presence_of :name
