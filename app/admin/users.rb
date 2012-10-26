@@ -6,9 +6,7 @@ ActiveAdmin.register User do
       f.input :phone
       f.input :role, :as => :select, :collection => User::ROLES, :include_blank => false
       f.input :function, :as => :select, :collection => User::FUNCTIONS, :include_blank => false
-      f.input :projects
-      # f.input :password
-      # f.input :password_confirmation
+      f.input :projects, :as => :check_boxes
     end
 
     f.buttons
