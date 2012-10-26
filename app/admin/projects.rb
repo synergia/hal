@@ -9,6 +9,26 @@ ActiveAdmin.register Project do
     f.buttons
   end
 
+  show do |ad|
+    attributes_table do
+      row :id
+      row :name
+      row :state
+      row :users do |project|
+        project.users.map do |user|
+          link_to user.name, user_path(user)
+        end.join(", ").html_safe
+      end
+      row :items do |user|
+        user.items.map do |item|
+          link_to item.name, item_path(item)
+        end.join(", ").html_safe
+      end
+      row :created_at
+      row :updated_at
+    end
+  end
+
   index do
     column :id
     column :name
