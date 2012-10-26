@@ -53,12 +53,12 @@ Hal::Application.configure do
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.default_url_options = { :host => 'synergia.teamon.eu' }
   config.action_mailer.smtp_settings = {
-    :address              => "smtp.gmail.com",
+    :address              => "poczta.pwr.wroc.pl",
     :port                 => 587,
-    :domain               => ENV["SMTP_DOMAIN"],
     :user_name            => ENV["SMTP_USER"],
     :password             => ENV["SMTP_PASS"],
-    :authentication       => 'plain',
+    :authentication       => :plain,
+    :openssl_verify_mode => 'none',
     :enable_starttls_auto => true
   }
 
