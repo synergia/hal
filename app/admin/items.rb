@@ -32,8 +32,10 @@ ActiveAdmin.register Item do
 
     column "Actions" do |item|
       links = []
-      links << link_to("Edit", edit_item_path(item), :class => "member_link")
-      links << link_to("Delete", item_path(item), :class => "member_link", :method => :delete)
+      if current_user.admin?
+        links << link_to("Edit", edit_item_path(item), :class => "member_link")
+        links << link_to("Delete", item_path(item), :class => "member_link", :method => :delete)
+      end
       links << link_to("Order", new_order_path(:order => {:item_id => item.id}), :class => "member_link") if item.available?
       links.join(" ").html_safe
     end
@@ -51,4 +53,12 @@ ActiveAdmin.register Item do
   filter :user
   filter :project
   filter :state, :as => :select, :collection => Item::STATES
+
+  config.clear_action_items!
+
+  action_item do
+    if current_user.admin?
+      link_to(I18n.t('active_admin.new_model', :model => active_admin_config.resource_name), new_resource_path)
+    end
+  end
 end

@@ -7,7 +7,7 @@ ActiveAdmin::Dashboards.build do
   # == Simple Dashboard Section
   # Here is an example of a simple dashboard section
   #
-  section "Pending orders" do
+  section "Pending orders", :if => proc { current_user.admin? } do
     table do
       tr do
         th "Item"
@@ -18,7 +18,7 @@ ActiveAdmin::Dashboards.build do
       Order.pending.recent(5).map do |order|
         tr do
           td link_to(order.item.name, order_path(order))
-          td link_to(order.project.name, order_path(order))
+          td (order.project ? link_to(order.project.name, order_path(order)) : "N/A")
           td link_to(order.user.name, order_path(order))
           td order.created_at.to_s(:short)
         end

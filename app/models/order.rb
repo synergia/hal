@@ -17,6 +17,7 @@ class Order < ActiveRecord::Base
     end
   end
 
+
   STATES.each do |st|
     scope st, where(:status => st)
 
@@ -37,16 +38,24 @@ class Order < ActiveRecord::Base
       item.save!
       self.save!
     end
+
+    send_email
   end
 
   def reject!
     self.accepting = true
     self.status = "rejected"
     save!
+
+    send_email
   end
 
   def name
     "##{id} (#{item.name})"
+  end
+
+  def send_email
+    MainMailer.order_status(self).deliver
   end
 
 

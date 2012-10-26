@@ -1,0 +1,17 @@
+<html>
+<body>
+<p>
+  Zamównienie na <%= link_to @order.item.name, order_url(@order) %> zostało <% if @order.accepted? %>zaakceptowane<% elsif @order.rejected? %>odrzucone<% end %>.
+</p>
+<p>
+<% if @order.accepted? %>
+Odbierz sprzęt w L-7.
+<% elsif @order.rejected? %>
+Przykro mi :(
+<% end %>
+</p>
+<br/>
+<br/>
+<a href="http://synergia.pwr.wroc.pl"><img src="http://synergia.pwr.wroc.pl/wp-content/uploads/logo.png" alt="logo" /></a>
+</body>
+</html>

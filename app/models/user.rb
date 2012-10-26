@@ -23,4 +23,8 @@ class User < ActiveRecord::Base
     new_record? ? false : super
   end
 
+  def admin?
+    role == "admin"
+  end
+
 end

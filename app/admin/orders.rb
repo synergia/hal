@@ -1,4 +1,5 @@
 ActiveAdmin.register Order do
+  menu :if => proc { current_user.admin? }
   scope :all
   scope :pending
   scope :accepted
@@ -45,6 +46,16 @@ ActiveAdmin.register Order do
     order = Order.find(params[:id])
     order.reject!
     redirect_to orders_path, :notice => "Order rejected"
+  end
+
+
+  action_item :only => :show do
+    links = []
+    if current_user.admin?
+      links << link_to("Accept", accept_order_path(order), :class => "member_link") unless order.accepted?
+      links << link_to("Reject", reject_order_path(order), :class => "member_link") unless order.rejected?
+    end
+    links.join(" ").html_safe
   end
 
 

@@ -57,6 +57,22 @@ ActiveAdmin.register User do
       end.join(", ").html_safe
     end
 
-    default_actions
+    column "Actions" do |user|
+      links = []
+      links << link_to("View", user_path(user), :class => "member_link")
+      if current_user.admin?
+        links << link_to("Edit", edit_user_path(user), :class => "member_link")
+        links << link_to("Delete", user_path(user), :class => "member_link", :method => :delete)
+      end
+      links.join("&nbsp").html_safe
+    end
+  end
+
+  config.clear_action_items!
+
+  action_item do
+    if current_user.admin?
+      link_to(I18n.t('active_admin.new_model', :model => active_admin_config.resource_name), new_resource_path)
+    end
   end
 end
