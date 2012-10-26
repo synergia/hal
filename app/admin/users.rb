@@ -68,6 +68,10 @@ ActiveAdmin.register User do
     end
   end
 
+  filter :email
+  filter :name
+  filter :role
+
   config.clear_action_items!
 
   action_item do
