@@ -20,6 +20,8 @@ class Item < ActiveRecord::Base
   belongs_to :user
   belongs_to :project
 
+  default_scope order("name ASC")
+
   STATES.each do |st|
     scope st, where(:state => st)
     define_method "#{st}?" do

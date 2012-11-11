@@ -17,6 +17,8 @@ class User < ActiveRecord::Base
   has_and_belongs_to_many :projects
   has_many :orders
 
+  default_scope order("name ASC")
+
   after_create { |admin| admin.send_reset_password_instructions }
 
   def password_required?

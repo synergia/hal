@@ -26,6 +26,8 @@ class Order < ActiveRecord::Base
     end
   end
 
+  default_scope order("created_at DESC")
+
   scope :recent, lambda {|n| order("created_at DESC").limit(n) }
 
   def accept!
