@@ -45,7 +45,6 @@ ActiveAdmin.register User do
   end
 
   index do
-    column :id
     column :name
     column :email
     column :role
@@ -66,6 +65,11 @@ ActiveAdmin.register User do
     end
   end
 
+  collection_action :emails, :method => :get do
+    headers['Content-Type'] = "text/plain"
+    render :text => User.all.map(&:email).join(", ")
+  end
+
   filter :email
   filter :name
   filter :role
@@ -76,5 +80,9 @@ ActiveAdmin.register User do
     if current_user.admin?
       link_to(I18n.t('active_admin.new_model', :model => active_admin_config.resource_name), new_resource_path)
     end
+  end
+
+  action_item do
+    link_to "Emails list", emails_users_path
   end
 end
