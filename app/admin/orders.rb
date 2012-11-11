@@ -21,6 +21,7 @@ ActiveAdmin.register Order do
       links << link_to("View", order_path(order), :class => "member_link")
       links << link_to("Accept", accept_order_path(order), :class => "member_link") unless order.accepted?
       links << link_to("Reject", reject_order_path(order), :class => "member_link") unless order.rejected?
+      links << link_to("Taken", taken_order_path(order), :class => "member_link") if order.accepted? && !order.item.taken?
       links.join(" ").html_safe
     end
   end
@@ -46,6 +47,13 @@ ActiveAdmin.register Order do
     order = Order.find(params[:id])
     order.reject!
     redirect_to orders_path, :notice => "Order rejected"
+  end
+
+  member_action :taken do
+    order = Order.find(params[:id])
+    order.item.state = "taken"
+    order.item.save
+    redirect_to orders_path, :notice => "Item taken"
   end
 
 
